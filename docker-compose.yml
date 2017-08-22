@@ -12,8 +12,8 @@ services:
       - .:/var/www/html
   mysql:
     image: mysql:5.7
-  volumes:
-    - mysqldata
+    volumes:
+       - mysqldata:/var/lib/mysql
 
 volumes:
   mysqldata:
