@@ -17,15 +17,10 @@ RUN apt-get update \
 	&& LC_ALL=C.UTF-8 add-apt-repository -y ppa:ondrej/php \
 	&& apt-get update \
 	#Install PHP
-	&& apt-get install -y php7.1-fpm php7.1soap php7.1-cli php7.1-mcrypt php7.1-gd php7.1-mysql \
+	&& apt-get install -y php7.1-fpm php7.1-cli php7.1-mcrypt php7.1-gd php7.1-mysql \
 	   php7.1-mbstring php7.1-xml php7.1-curl php7.1-xdebug \
     && php -r "readfile('http://getcomposer.org/installer');" | php -- --install-dir=/usr/bin/ --filename=composer \
     && mkdir /run/php \
-    #Install Blackfire agent
-    && curl -A "Docker" -o /tmp/blackfire-probe.tar.gz -D - -L -s https://blackfire.io/api/v1/releases/probe/php/linux/amd64/70 \
-    && tar zxpf /tmp/blackfire-probe.tar.gz -C /tmp \
-    && mv /tmp/blackfire-*.so $(php -r "echo ini_get('extension_dir');")/blackfire.so \
-    && printf "extension=blackfire.so\nblackfire.agent_socket=tcp://blackfire:8707\n" > /etc/php/7.0/fpm/conf.d/blackfire.ini
     #Perform cleanup
     && apt-get remove -y --purge software-properties-common curl \
     && apt-get -y autoremove \
