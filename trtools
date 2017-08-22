@@ -4,20 +4,24 @@
 BASE_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
 #define our docker compose command
-COMPOSE="docker-compose"
+COMPOSE="docker-compose -f $BASE_DIR/docker-compose.yml"
 
 if [ $# -gt 0 ]; then
+	#run composer commands in a new one-off app container
 	if [ $1 == 'composer' ]; then
 		shift 1
 		$COMPOSE run --rm \
 			-w /var/www/html \
 			app composer $@
+	#interact with our mysql container (command line)
 	elif [ $1 == 'mysql' ]; then
 		shift 1
 		$COMPOSE exec mysql mysql -uroot -p
+	#start a bash shell in our running app container
 	elif [ $1 == 'bash' ]; then
 		shift 1
 		$COMPOSE exec app bash
+	#run any php artisan commands against a one-off app container
 	elif [ $1 == 'art' ]; then
 		shift 1
 		$COMPOSE run --rm \
@@ -25,5 +29,6 @@ if [ $# -gt 0 ]; then
             app php artisan $@
 	fi
 else
+	#execute docker-compose ps as our default command if no arguments are given
 	$COMPOSE ps
 fi
