@@ -13,7 +13,7 @@ services:
   mysql:
     image: mysql:5.7
     volumes:
-       - mysqldata:/var/lib/mysql
+       - mysqldata:/var/lib/mysqlchrome
     ports:
       - "33060:3306"
     environment:
