@@ -1,0 +1,29 @@
+#!/usr/bin/env bash
+
+#set the base dir for references throughout
+BASE_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+
+#define our docker compose command
+COMPOSE="docker-compose"
+
+if [ $# -gt 0 ]; then
+	if [ $1 == 'composer' ]; then
+		shift 1
+		$COMPOSE run --rm \
+			-w /var/www/html \
+			app composer $@
+	elif [ $1 == 'mysql' ]; then
+		shift 1
+		$COMPOSE exec mysql mysql -uroot -p
+	elif [ $1 == 'bash' ]; then
+		shift 1
+		$COMPOSE exec app bash
+	elif [ $1 == 'art' ]; then
+		shift 1
+		$COMPOSE run --rm \
+            -w /var/www/html \
+            app php artisan $@
+	fi
+else
+	$COMPOSE ps
+fi
