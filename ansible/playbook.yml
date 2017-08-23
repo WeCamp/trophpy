@@ -7,7 +7,8 @@
     - server
     - vagrant_local
     - nginx
-    - sqlite
+#    - sqlite
+    - mysql
     - php
     - composer
     - app
