@@ -1,0 +1,44 @@
+#!/usr/bin/env bash
+
+#set the base dir for references throughout
+BASE_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+
+#define our docker compose command
+COMPOSE="docker-compose -f $BASE_DIR/docker-compose.yml"
+
+if [ $# -gt 0 ]; then
+	#build one or more services (accepts a servicename as an argument)
+	if [ $1 == 'build' ]; then
+		shift 1
+		$COMPOSE build $@
+	#a shorthand to boot and daemonize our docker composition
+	elif [ $1 == 'boot' ]; then
+		$COMPOSE up -d
+	#run composer commands in a new one-off app container
+	elif [ $1 == 'composer' ]; then
+		shift 1
+		$COMPOSE run --rm \
+			-w /var/www/html \
+			app composer $@
+	#interact with our mysql container (command line)
+	elif [ $1 == 'mysql' ]; then
+		shift 1
+		$COMPOSE exec mysql mysql -uroot -p
+	#start a bash shell in our running app container
+	elif [ $1 == 'bash' ]; then
+		shift 1
+		$COMPOSE exec app bash
+	#run any php artisan commands against a one-off app container
+	elif [ $1 == 'art' ]; then
+		shift 1
+		$COMPOSE run --rm \
+            -w /var/www/html \
+            app php artisan $@
+    else
+    #if none of our presets is given as argument just pipe it to docker-compose
+        $COMPOSE $@
+	fi
+else
+	#execute docker-compose ps as our default command if no arguments are given
+	$COMPOSE ps
+fi
