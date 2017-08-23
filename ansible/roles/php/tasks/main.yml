@@ -1,0 +1,22 @@
+---
+- name: Add ppa Repository
+  become: true
+  apt_repository: repo=ppa:ondrej/php
+
+- name: Install PHP packages
+  apt: pkg={{ item }} state=present
+  with_items:
+    - php7.1-fpm
+    - php7.1-mysql
+    - php7.1-xml
+    - php7.1-gd
+    - php7.1-mbstring
+    - php7.1-curl
+    - php7.1-zip
+    - php7.1-mcrypt
+    - php7.1-intl
+    - php7.1-soap
+    - php-imagick
+  notify: restart php7.1-fpm
+
+- include: configure.yml

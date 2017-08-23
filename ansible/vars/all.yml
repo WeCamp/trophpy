@@ -1,0 +1,19 @@
+---
+server:
+    install: '1'
+    timezone: UTC
+    locale: en_US.UTF-8
+vagrant_local:
+    install: '1'
+    vm: { base_box: trusty64, hostname: trophpy.com, ip: 192.168.33.222, memory: '2048', sharedfolder: ./, syncType: nfs }
+nginx:
+    install: '1'
+    docroot: '/vagrant/public'
+    servername: 'trophpy.com www.trophpy.com'
+    hostname: 'trophpy.com'
+sqlite:
+    install: '1'
+composer:
+    install: '1'
+application:
+    root: /vagrant

@@ -1,0 +1,12 @@
+---
+phpfpm:
+  max_children: 5
+  start_servers: 3
+  min_spare_servers: 3
+  max_spare_servers: 4
+  max_requests: 0
+  process_idle_timeout: 10s
+  pm: dynamic
+
+php:
+  packages: []
