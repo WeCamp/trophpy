@@ -23,6 +23,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
+        if(getenv('APP_ENV') === 'local' && class_exists(\Barryvdh\Debugbar\ServiceProvider::class)){
+            $this->app->register(\Barryvdh\Debugbar\ServiceProvider::class);
+        }
         //
     }
 }
