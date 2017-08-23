@@ -7,8 +7,15 @@ BASE_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 COMPOSE="docker-compose -f $BASE_DIR/docker-compose.yml"
 
 if [ $# -gt 0 ]; then
+	#build one or more services (accepts a servicename as an argument)
+	if [ $1 == 'build' ]; then
+		shift 1
+		$COMPOSE build $@
+	#a shorthand to boot and daemonize our docker composition
+	elif [ $1 == 'boot' ]; then
+		$COMPOSE up -d
 	#run composer commands in a new one-off app container
-	if [ $1 == 'composer' ]; then
+	elif [ $1 == 'composer' ]; then
 		shift 1
 		$COMPOSE run --rm \
 			-w /var/www/html \
