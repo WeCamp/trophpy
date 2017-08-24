@@ -6,7 +6,7 @@ namespace App\Http\Controllers;
 use App\Models\Challenge;
 use Illuminate\View\View;
 
-class ChallengeController extends Controller
+final class ChallengeController extends Controller
 {
     public function listAll(): View
     {
