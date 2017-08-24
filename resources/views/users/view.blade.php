@@ -38,13 +38,13 @@
         <div class="panel-heading">
             <h3><i class="fa fa-lg fa-tasks"></i> Current Challenges</h3>
         </div>
-        @include ('partials.challenges._list', ['challenges' => $currentChallenges])
+        @include ('partials.challenges._list', ['challenges' => $currentChallenges, 'showStartedOn' => true])
     </div>
     <div class="row">
         <div class="panel-heading">
             <h3><i class="fa fa-lg fa-trophy"></i> Completed Challenges</h3>
         </div>
-        @include ('partials.challenges._list', ['challenges' => $completedChallenges])
+        @include ('partials.challenges._list', ['challenges' => $completedChallenges, 'showCompletedOn' => true])
     </div>
 
 
