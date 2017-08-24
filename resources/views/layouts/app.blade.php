@@ -12,6 +12,7 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
     <div id="app">
@@ -27,6 +28,16 @@
                         <span class="icon-bar"></span>
                     </button>
 
+                    <!-- Branding Image -->
+                    @if (Auth::check())
+                        <a class="navbar-brand" href="{{ route('users.view', Auth::user()->username) }}">
+                            {{ config('app.name', 'Trophpy') }}
+                        </a>
+                    @else
+                        <a class="navbar-brand" href="{{ url('/') }}">
+                            {{ config('app.name', 'Trophpy') }}
+                        </a>
+                    @endif
                 </div>
 
                 <div class="collapse navbar-collapse" id="app-navbar-collapse">
