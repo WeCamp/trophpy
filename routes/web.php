@@ -21,6 +21,7 @@ Route::group(['middleware' => 'auth'], function (){
     Route::get('/challenges', 'ChallengeController@listAll')->name('challenges.listAll');
     Route::get('/challenges/start/{id}', 'ChallengeController@startChallenge')->name('challenges.startChallenge');
     Route::get('/challenges/complete/{id}', 'ChallengeController@completeChallenge')->name('challenges.completeChallenge');
+    Route::get('/leaderboard', 'LeaderBoardController@show')->name('leaderboard.show');
     Route::get('/users/{user}', 'UsersController@view')->name('users.view');
     Route::post('/users/{user}/edit', 'UsersController@update')->name('users.update');
 });
