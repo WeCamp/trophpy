@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
@@ -35,5 +36,15 @@ class User extends Authenticatable
     public function getRouteKeyName()
     {
         return 'username';
+    }
+
+    public function currentChallenges(): BelongsToMany
+    {
+        return $this->belongsToMany(Challenge::class, 'user_challenges');
+    }
+
+    public function completedChallenges(): BelongsToMany
+    {
+        return $this->belongsToMany(Challenge::class, 'user_challenges');
     }
 }
