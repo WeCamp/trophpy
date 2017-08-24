@@ -29,10 +29,15 @@
                     </button>
 
                     <!-- Branding Image -->
-                    <a class="navbar-brand" href="{{ route('users.view', Auth::user()->username) }}">
-                        {{ config('app.name', 'Trophpy') }}
-                    </a>
-
+                    @if (Auth::check())
+                        <a class="navbar-brand" href="{{ route('users.view', Auth::user()->username) }}">
+                            {{ config('app.name', 'Trophpy') }}
+                        </a>
+                    @else
+                        <a class="navbar-brand" href="{{ url('/') }}">
+                            {{ config('app.name', 'Trophpy') }}
+                        </a>
+                    @endif
                 </div>
 
                 <div class="collapse navbar-collapse" id="app-navbar-collapse">
