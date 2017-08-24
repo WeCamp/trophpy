@@ -34,7 +34,7 @@
                     <ul class="nav navbar-nav">
                         @if (Auth::check())
                             <li>
-                                <a href="{{ route('challenges-list-all') }}">Challenges</a>
+                                <a href="{{ route('challenges.listAll') }}">Challenges</a>
                             </li>
                         @endif
                     </ul>
