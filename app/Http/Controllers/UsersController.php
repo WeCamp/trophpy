@@ -10,12 +10,12 @@ class UsersController extends Controller
 {
     public function view(User $user): View
     {
-        $user = $user->toArray();
 
-        $currentChallenges = Challenge::all();
 
-        $completedChallenges = Challenge::all();
-
-        return view('users.view')->with(compact('user', 'currentChallenges', 'completedChallenges'));
+        return view('users.view')->with([
+            'user' => $user->toArray(),
+            'currentChallenges' => $user->currentChallenges->toArray(),
+            'completedChallenges' =>  $user->completedChallenges->toArray(),
+        ]);
     }
 }
