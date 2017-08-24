@@ -10,9 +10,11 @@
     ],
     "require": {
         "php": ">=5.6.4",
+        "guzzlehttp/guzzle": "^6.3",
         "laravel/framework": "5.4.*",
         "laravel/tinker": "~1.0",
         "laravelcollective/html": "^5.4.0",
+        "maknz/slack": "^1.7",
         "maknz/slack-laravel": "^1.0"
     },
     "require-dev": {
@@ -27,7 +29,8 @@
             "database/factories"
         ],
         "psr-4": {
-            "App\\": "app/"
+            "App\\": "app/",
+            "Trophpy\\": "Src/"
         }
     },
     "autoload-dev": {
