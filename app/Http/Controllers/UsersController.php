@@ -3,17 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use Illuminate\View\View;
 
 class UsersController extends Controller
 {
-
-    /**
-     * View a user profile (retrieved by username)
-     * @param User $user
-     *
-     * @return $this
-     */
-    public function view(User $user)
+    public function view(User $user): View
     {
         $user = $user->toArray();
 
