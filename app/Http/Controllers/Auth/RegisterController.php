@@ -1,7 +1,9 @@
 <?php
+declare(strict_types = 1);
 
 namespace App\Http\Controllers\Auth;
 
+use App\Events\UserWasRegistered;
 use App\Models\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Contracts\Auth\Authenticatable;
@@ -75,6 +77,11 @@ class RegisterController extends Controller
      */
     public function registered(Request $request, Authenticatable $user)
     {
-        return redirect(route('users.view', $user->username));
+        $username = $user->username;
+        $link = route('users.view', $username);
+
+        event(new UserWasRegistered($user));
+
+        return redirect($link);
     }
 }
