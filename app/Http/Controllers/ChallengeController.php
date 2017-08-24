@@ -10,8 +10,8 @@ final class ChallengeController extends Controller
 {
     public function listAll(): View
     {
-        $challenges = Challenge::all();
+        $challengesAsArray = Challenge::all()->toArray();
 
-        return view('challenges.list', compact('challenges'));
+        return view('challenges.list', ['challenges' => $challengesAsArray]);
     }
 }
