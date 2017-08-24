@@ -16,25 +16,24 @@ final class SlackNotifier
     /** @var Message */
     private $message;
 
-    private function __construct()
+    private function __construct(Client $client = null)
     {
         $settings = config('slack.client.settings');
 
-        $this->client  = new Client(config('slack.client.endpoint'));
+        if (empty($client)) {
+            $client = new Client(config('slack.client.endpoint'));
+        }
+
+        $this->client  = $client;
         $this->message = new Message($this->client);
 
         $this->message->setUsername($settings['username']);
         $this->message->setChannel($settings['channel']);
     }
 
-    public static function new(): self
+    public static function new(Client $client = null): self
     {
-        return self::createInstance();
-    }
-
-    private static function createInstance(): self
-    {
-        return new static();
+        return new static($client);
     }
 
     public function from(string $username): self
@@ -67,6 +66,11 @@ final class SlackNotifier
 
     public function dispatch()
     {
-        $this->message->send();
+        $this->client->sendMessage($this->message);
+    }
+
+    public function getMessage(): Message
+    {
+        return $this->message;
     }
 }
