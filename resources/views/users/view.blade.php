@@ -8,7 +8,11 @@
                 <div class="panel-body">
                     <div class="row">
                         <div class="col-sm-4 col-sm-offset-4">
-                            <img class="img-circle" width="300" src="{!!  asset('/img/user_avatar.png') !!}" alt="...">
+                            @if(!empty($user['avatar_filename']))
+                                <img class="img-circle" width="100%" src="{!!  asset('img/'.$user['avatar_filename']) !!}" alt="...">
+                            @else
+                                <img class="img-circle" width="100%" src="{!!  asset('img/user_avatar.png') !!}" alt="...">
+                            @endif
                         </div>
                     </div>
                    <h1 class="text-center">{{$user['name']}}</h1>
@@ -27,7 +31,7 @@
                     <i class="fa fa-lg fa-info-circle"></i> Bio
                 </div>
                 <div class="panel-body">
-                    YOUR BIO GOES HERE!
+                    {{$user['bio']}}
                 </div>
             </div>
             <!-- PANEL END -->

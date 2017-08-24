@@ -17,9 +17,7 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
-
 Route::group(['middleware' => 'auth'], function (){
-    Route::get('/users/{user}', 'UsersController@view');
     Route::get('/challenges', 'ChallengeController@listAll')->name('challenges.listAll');
+    Route::get('/users/{user}', 'UsersController@view')->name('users.view');
 });

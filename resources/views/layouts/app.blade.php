@@ -29,7 +29,7 @@
                     </button>
 
                     <!-- Branding Image -->
-                    <a class="navbar-brand" href="{{ url('/') }}">
+                    <a class="navbar-brand" href="{{ route('users.view', Auth::user()->username) }}">
                         {{ config('app.name', 'Trophpy') }}
                     </a>
 
