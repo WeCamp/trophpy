@@ -9,6 +9,7 @@ class UsersController extends Controller
 {
     public function view(User $user): View
     {
+
         return view('users.view')->with([
             'user' => $user->toArray(),
             'currentChallenges' => $user->currentChallenges->toArray(),

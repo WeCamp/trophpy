@@ -40,11 +40,11 @@ class User extends Authenticatable
 
     public function currentChallenges(): BelongsToMany
     {
-        return $this->belongsToMany(Challenge::class, 'user_challenges');
+        return $this->belongsToMany(Challenge::class, 'user_challenges')->withPivot(['created_at']);
     }
 
     public function completedChallenges(): BelongsToMany
     {
-        return $this->belongsToMany(Challenge::class, 'user_challenges');
+        return $this->belongsToMany(Challenge::class, 'user_challenges')->withPivot(['completed_on']);
     }
 }
