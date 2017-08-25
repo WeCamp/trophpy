@@ -29,7 +29,7 @@ final class ChallengeController extends Controller
         $challenge = Challenge::findOrFail($challengeId);
         $user->currentChallenges()->attach($challenge);
 
-        return redirect(route('users.view', Auth::user()->username));
+        return redirect(route('challenges.listAll', Auth::user()->username));
     }
 
     /**
