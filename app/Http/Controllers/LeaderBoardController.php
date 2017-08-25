@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
-//use Illuminate\Http\Request;
 
 class LeaderBoardController extends Controller
 {
@@ -12,8 +11,10 @@ class LeaderBoardController extends Controller
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function show() {
-        $usersAsArray = User::orderBy('name', 'asc')->get()->toArray();
+        $users = User::with('completedChallenges')->get()->sortByDesc(function($user){
+            return $user->score();
+        });
 
-        return view('leaderBoard.show', ['users' => $usersAsArray]);
+        return view('leaderBoard.show', ['users' => $users]);
     }
 }

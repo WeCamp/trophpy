@@ -9,9 +9,9 @@
                         <div class="panel-body @if($loop->index <3) bg-success @endif">
                             <div class="row">
                                 <div class="col-md-1">{{$loop->index + 1}}</div>
-                                <div class="col-md-9">{{ $user['name'] }}</div>
+                                <div class="col-md-9">{{ $user->name }}</div>
                                 <div class="col-md-2">
-                                    <div class="pull-right">@random <i class="fa fa-trophy" aria-hidden="true"></i></div>
+                                    <div class="pull-right">{{$user->score()}} <i class="fa fa-trophy" aria-hidden="true"></i></div>
                                 </div>
                             </div>
 
