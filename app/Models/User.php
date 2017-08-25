@@ -71,6 +71,6 @@ class User extends Authenticatable
     {
        return Challenge::all()->filter(function(Challenge $challenge) {
            return $this->challenges->contains($challenge) === false;
-       })
+       });
     }
 }
