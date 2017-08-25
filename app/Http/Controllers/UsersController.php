@@ -10,9 +10,12 @@ class UsersController extends Controller
 {
     public function view(User $user): View
     {
-        $user = $user->toArray();
 
-        return view('users.view')->with(compact('user'));
+        return view('users.view')->with([
+            'user' => $user->toArray(),
+            'currentChallenges' => $user->currentChallenges->toArray(),
+            'completedChallenges' => $user->completedChallenges->toArray(),
+        ]);
     }
 
     public function update(Request $request,User $user)

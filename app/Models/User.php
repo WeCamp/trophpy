@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
@@ -35,5 +37,40 @@ class User extends Authenticatable
     public function getRouteKeyName()
     {
         return 'username';
+    }
+
+    public function currentChallenges(): BelongsToMany
+    {
+        return $this->belongsToMany(Challenge::class, 'user_challenges')
+            ->using('\App\Models\UserChallenge')
+            ->whereNotNull('started_on')
+            ->whereNull('completed_on')
+            ->withPivot(['id', 'started_on'])
+            ->orderBy('started_on');
+    }
+
+    public function completedChallenges(): BelongsToMany
+    {
+        return $this->belongsToMany(Challenge::class, 'user_challenges')
+            ->using('\App\Models\UserChallenge')
+            ->whereNotNull('started_on')
+            ->whereNotNull('completed_on')
+            ->withPivot(['id', 'started_on', 'completed_on'])
+            ->orderBy('completed_on', 'desc');
+    }
+
+    public function challenges() : BelongsToMany
+    {
+        return $this->belongsToMany(Challenge::class, 'user_challenges')
+        ->using('\App\Models\UserChallenge')
+        ->whereNotNull('started_on')
+            ->withPivot(['id', 'started_on', 'completed_on']);
+    }
+
+    public function availableChallenges(): Collection
+    {
+       return Challenge::all()->filter(function(Challenge $challenge) {
+           return $this->challenges->contains($challenge) === false;
+       });
     }
 }
