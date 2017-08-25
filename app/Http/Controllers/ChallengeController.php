@@ -13,9 +13,10 @@ final class ChallengeController extends Controller
 {
     public function listAll(): View
     {
-        $challengesAsArray = Challenge::all()->toArray();
+        $user = Auth::user();
+        $challenges = $user->availableChallenges();
 
-        return view('challenges.list', ['challenges' => $challengesAsArray]);
+        return view('challenges.list', ['challenges' => $challenges->toArray()]);
     }
 
     /**

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -54,5 +55,20 @@ class User extends Authenticatable
             ->whereNotNull('started_on')
             ->whereNotNull('completed_on')
             ->withPivot(['id', 'started_on', 'completed_on']);
+    }
+
+    public function challenges() : BelongsToMany
+    {
+        return $this->belongsToMany(Challenge::class, 'user_challenges')
+        ->using('\App\Models\UserChallenge')
+        ->whereNotNull('started_on')
+            ->withPivot(['id', 'started_on', 'completed_on']);
+    }
+
+    public function availableChallenges(): Collection
+    {
+       return Challenge::all()->filter(function(Challenge $challenge) {
+           return $this->challenges->contains($challenge) === false;
+       });
     }
 }
