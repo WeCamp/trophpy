@@ -14,9 +14,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        Blade::directive('random', function () {
-            return "<?php echo rand(0,100); ?>";
-        });
+        //
     }
 
     /**
