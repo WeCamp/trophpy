@@ -19,6 +19,19 @@ final class ChallengeController extends Controller
     }
 
     /**
+     * @param $challengeId
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
+    public function startChallenge($challengeId): View
+    {
+        $user = Auth::user();
+        $challenge = Challenge::findOrFail($challengeId);
+        $user->currentChallenges()->attach($challenge);
+
+        return redirect(route('users.view', Auth::user()->username));
+    }
+
+    /**
      * @param $userChallengeId Id of UserChallenge
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
