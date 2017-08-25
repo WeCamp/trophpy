@@ -6,7 +6,7 @@
         <div class="panel panel-default">
             <div class="panel-body">
                 <div class="row">
-                    <button type="button" class="btn btn-primary pull-right" data-toggle="modal" data-target="#myModal">
+                    <button type="button" class="btn btn-primary pull-right" style="margin-right: 10px;" data-toggle="modal" data-target="#myModal">
                         <i class="fa fa-pencil"></i> Edit
                     </button>
                     <div class="col-sm-4 col-sm-offset-4">
