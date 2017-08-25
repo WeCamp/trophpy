@@ -49,7 +49,6 @@
         </div>
         @include ('partials.challenges._list', [
             'challenges' => $completedChallenges,
-            'showStartedOn' => true,
             'showCompletedOn' => true,
         ])
     </div>
