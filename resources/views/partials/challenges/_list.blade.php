@@ -10,7 +10,7 @@
 
             @if(isset($showStartedOn) && $showStartedOn === true)
                 <p>Started on {{ \Carbon\Carbon::parse($challenge['pivot']['started_on'])->format('l j F Y h:i A') }}
-                    <a  class="btn btn-success pull-right" href="{{ route('challenges.completeChallenge', ['user_challenge_id' => $challenge['pivot']['id']]) }}">I Did It!</a>
+                    <a  class="btn btn-success pull-right" href="{{ route('challenges.completeChallenge', ['challengeId' => $challenge['id']]) }}">I Did It!</a>
                 </p>
             @endif
 

@@ -22,7 +22,7 @@ final class ChallengeController extends Controller
      * @param $challengeId
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function startChallenge($challengeId): View
+    public function startChallenge($challengeId)
     {
         $user = Auth::user();
         $challenge = Challenge::findOrFail($challengeId);
@@ -32,15 +32,18 @@ final class ChallengeController extends Controller
     }
 
     /**
-     * @param $userChallengeId Id of UserChallenge
+     * @param $challengeId Id of Challenge
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function completeChallenge($userChallengeId)
+    public function completeChallenge($challengeId)
     {
         $user = Auth::user();
-        $currentChallenge = $user->currentChallenges()->wherePivot('id', $userChallengeId)->firstOrFail();
-        $currentChallenge->pivot->update(['completed_on' => Carbon::now()]);
+        $user->currentChallenges()->sync([
+            $challengeId => [
+                'completed_on' => Carbon::now()
+            ]
+        ], false);
 
-        return redirect(route('users.view', Auth::user()->username));
+        return redirect(route('users.view', $user->username));
     }
 }
