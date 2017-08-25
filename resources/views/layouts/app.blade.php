@@ -31,7 +31,7 @@
                     <!-- Branding Image -->
                     @if (Auth::check())
                         <a class="navbar-brand" href="{{ route('users.view', Auth::user()->username) }}">
-                            {{ config('app.name', 'Trophpy') }}
+                            <i class="fa fa-trophy" aria-hidden="true"></i> {{ config('app.name', 'Trophpy') }}
                         </a>
                     @else
                         <a class="navbar-brand" href="{{ url('/') }}">
@@ -46,6 +46,9 @@
                         @if (Auth::check())
                             <li>
                                 <a href="{{ route('challenges.listAll') }}">Challenges</a>
+                            </li>
+                            <li>
+                                <a href="{{ route('leaderboard.show') }}">Leader Board</a>
                             </li>
                         @endif
                     </ul>

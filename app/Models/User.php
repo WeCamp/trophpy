@@ -73,4 +73,9 @@ class User extends Authenticatable
            return $this->challenges->contains($challenge) === false;
        });
     }
+
+    public function score() : int
+    {
+        return $this->completedChallenges->count();
+    }
 }
