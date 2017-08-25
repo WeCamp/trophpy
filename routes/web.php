@@ -19,5 +19,6 @@ Auth::routes();
 
 Route::group(['middleware' => 'auth'], function (){
     Route::get('/challenges', 'ChallengeController@listAll')->name('challenges.listAll');
+    Route::get('/challenges/complete/{id}', 'ChallengeController@completeChallenge')->name('challenges.completeChallenge');
     Route::get('/users/{user}', 'UsersController@view')->name('users.view');
 });

@@ -41,16 +41,18 @@ class User extends Authenticatable
     public function currentChallenges(): BelongsToMany
     {
         return $this->belongsToMany(Challenge::class, 'user_challenges')
+            ->using('\App\Models\UserChallenge')
             ->whereNotNull('started_on')
             ->whereNull('completed_on')
-            ->withPivot(['started_on']);
+            ->withPivot(['id', 'started_on']);
     }
 
     public function completedChallenges(): BelongsToMany
     {
         return $this->belongsToMany(Challenge::class, 'user_challenges')
+            ->using('\App\Models\UserChallenge')
             ->whereNotNull('started_on')
             ->whereNotNull('completed_on')
-            ->withPivot(['started_on', 'completed_on']);
+            ->withPivot(['id', 'started_on', 'completed_on']);
     }
 }
