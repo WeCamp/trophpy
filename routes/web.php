@@ -20,4 +20,5 @@ Auth::routes();
 Route::group(['middleware' => 'auth'], function (){
     Route::get('/challenges', 'ChallengeController@listAll')->name('challenges.listAll');
     Route::get('/users/{user}', 'UsersController@view')->name('users.view');
+    Route::post('/users/{user}/edit', 'UsersController@update')->name('users.update');
 });
