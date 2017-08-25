@@ -13,12 +13,12 @@ ENV LC_ALL nl_NL.UTF-8
 ENV TZ Europe/Amsterdam
 
 RUN apt-get update \
-	&& apt-get install -y nginx zip unzip git software-properties-common supervisor curl \
+	&& apt-get install -y nginx zip unzip git software-properties-common supervisor curl sqlite3 \
 	&& LC_ALL=C.UTF-8 add-apt-repository -y ppa:ondrej/php \
 	&& apt-get update \
 	#Install PHP
 	&& apt-get install -y php7.1-fpm php7.1-cli php7.1-mcrypt php7.1-gd php7.1-mysql \
-	   php7.1-mbstring php7.1-xml php7.1-curl php7.1-xdebug \
+	   php7.1-mbstring php7.1-xml php7.1-curl php7.1-xdebug php7.1-sqlite php7.1-pdosqlite \
     && php -r "readfile('http://getcomposer.org/installer');" | php -- --install-dir=/usr/bin/ --filename=composer \
     && mkdir /run/php \
     #Perform cleanup

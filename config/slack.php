@@ -7,7 +7,6 @@ return [
             'username' => env('SLACK_USERNAME', 'Trophpy Event Notifier'),
             'channel'  => env('SLACK_CHANNEL','trophpy'),
             'link_names' => true,
-
         ]
     ]
 ];
