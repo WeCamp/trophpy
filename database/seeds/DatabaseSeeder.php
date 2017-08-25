@@ -7,7 +7,7 @@ class DatabaseSeeder extends Seeder
 {
     public function run(): void
     {
-//         $this->call(ChallengeTableSeeder::class);
-         $this->call(UserChallengesTableSeeder::class);
+         $this->call(ChallengeTableSeeder::class);
+//         $this->call(UserChallengesTableSeeder::class);
     }
 }
