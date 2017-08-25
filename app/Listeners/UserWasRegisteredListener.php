@@ -23,7 +23,7 @@ final class UserWasRegisteredListener
 
         SlackNotifier::new()
                      ->text("{$user->name} just joined Trophpy, checkout the profile at: {$link}!")
-                     ->dispatch()
+                     ->queue()
         ;
     }
 }

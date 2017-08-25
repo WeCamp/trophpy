@@ -3,6 +3,9 @@ declare(strict_types=1);
 
 namespace Tests\Unit;
 
+use App\Jobs\SendSlackMessage;
+use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Maknz\Slack\Client;
 use Mockery;
 use Tests\TestCase;
@@ -10,6 +13,7 @@ use Trophpy\Slack\SlackNotifier;
 
 final class SlockNotifierTest extends TestCase
 {
+    use DatabaseMigrations, DatabaseTransactions;
 
     /** @test */
     public function username_is_initialized_by_default()
@@ -74,8 +78,16 @@ final class SlockNotifierTest extends TestCase
                ->once()
         ;
 
-        SlackNotifier::new($client)
-                     ->dispatch()
+        SlackNotifier::new()
+                     ->dispatch($client)
         ;
+    }
+
+    /** @test */
+    public function slack_notifications_can_be_queued()
+    {
+        $this->expectsJobs(SendSlackMessage::class);
+
+        SlackNotifier::new()->queue();
     }
 }

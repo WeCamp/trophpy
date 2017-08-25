@@ -3,37 +3,39 @@ declare(strict_types=1);
 
 namespace Trophpy\Slack;
 
+use App\Jobs\SendSlackMessage;
 use Maknz\Slack\Attachment;
 use Maknz\Slack\Client;
-use Maknz\Slack\Message;
+use Maknz\Slack\Message as SlackMessage;
 
 final class SlackNotifier
 {
 
-    /** @var \Maknz\Slack\Client */
-    private $client;
-
     /** @var Message */
     private $message;
 
-    private function __construct(Client $client = null)
+    private function __construct(Message $message = null)
     {
         $settings = config('slack.client.settings');
 
-        if (empty($client)) {
-            $client = new Client(config('slack.client.endpoint'));
+        if (empty($message)) {
+            $message = new Message();
+
+            $message->setUsername($settings['username']);
+            $message->setChannel($settings['channel']);
         }
 
-        $this->client  = $client;
-        $this->message = new Message($this->client);
-
-        $this->message->setUsername($settings['username']);
-        $this->message->setChannel($settings['channel']);
+        $this->message = $message;
     }
 
-    public static function new(Client $client = null): self
+    public static function new(): self
     {
-        return new static($client);
+        return new static();
+    }
+
+    public static function newFromQueue(Message $message): self
+    {
+        return new static($message);
     }
 
     public function from(string $username): self
@@ -64,9 +66,37 @@ final class SlackNotifier
         return $this;
     }
 
-    public function dispatch()
+    public function dispatch(Client $client = null)
     {
-        $this->client->sendMessage($this->message);
+        if (empty($client)) {
+            $client = $this->createSlackClient();
+        }
+
+        $slackMessage = $this->createSlackMessage($client);
+
+        $client->sendMessage($slackMessage);
+    }
+
+    private function createSlackClient(): Client
+    {
+        return new Client(config('slack.client.endpoint'));
+    }
+
+    private function createSlackMessage(Client $client): SlackMessage
+    {
+        $message = new SlackMessage($client);
+
+        $message->setChannel($this->message->getChannel());
+        $message->setUsername($this->message->getUsername());
+        $message->setText($this->message->getText());
+        $message->setAttachments($this->message->getAttachments());
+
+        return $message;
+    }
+
+    public function queue()
+    {
+        dispatch(new SendSlackMessage($this->getMessage()));
     }
 
     public function getMessage(): Message
