@@ -16,4 +16,4 @@ class UsersController extends Controller
             'completedChallenges' => $user->completedChallenges->toArray(),
         ]);
     }
-}
+}   

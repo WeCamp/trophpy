@@ -21,11 +21,12 @@ class CreateUserChallengesTable extends Migration
             $table->integer('challenge_id')->unsigned()->nullable();
             $table->foreign('challenge_id')->references('id')->on('challenges');
 
-            $table->timestamp('completed_on');
+            $table->timestamp('started_on')->default(\DB::raw('CURRENT_TIMESTAMP'));
+            $table->timestamp('completed_on')->nullable();
 
             $table->timestamps();
 
-            $table->index(['created_at', 'completed_on']);
+            $table->index(['started_on', 'completed_on']);
             $table->unique(['user_id', 'challenge_id'], 'user_id_challenge_id');
         });
     }

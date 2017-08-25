@@ -4,11 +4,11 @@
             <h4>{{ $challenge['title'] }}</h4>
 
             @if(isset($showStartedOn) && $showStartedOn === true)
-                Started on {{ \Carbon\Carbon::parse($challenge['pivot']['created_at'])->format(\Carbon\Carbon::DEFAULT_TO_STRING_FORMAT) }}
+                <p>Started on {{ \Carbon\Carbon::parse($challenge['pivot']['started_on'])->format('l j F Y h:i A') }}</p>
             @endif
 
-            @if(isset($showCompletedOn) && $showCompletedOn === true)
-                Completed on {{ \Carbon\Carbon::parse($challenge['pivot']['completed_on'])->format(\Carbon\Carbon::DEFAULT_TO_STRING_FORMAT) }}
+        @if(isset($showCompletedOn) && $showCompletedOn === true)
+                <p>Completed on {{ \Carbon\Carbon::parse($challenge['pivot']['completed_on'])->format('l j F Y h:i A') }}</p>
             @endif
         </div>
     </div>
