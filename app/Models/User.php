@@ -45,7 +45,8 @@ class User extends Authenticatable
             ->using('\App\Models\UserChallenge')
             ->whereNotNull('started_on')
             ->whereNull('completed_on')
-            ->withPivot(['id', 'started_on']);
+            ->withPivot(['id', 'started_on'])
+            ->orderBy('started_on');
     }
 
     public function completedChallenges(): BelongsToMany
@@ -54,7 +55,8 @@ class User extends Authenticatable
             ->using('\App\Models\UserChallenge')
             ->whereNotNull('started_on')
             ->whereNotNull('completed_on')
-            ->withPivot(['id', 'started_on', 'completed_on']);
+            ->withPivot(['id', 'started_on', 'completed_on'])
+            ->orderBy('completed_on', 'desc');
     }
 
     public function challenges() : BelongsToMany
@@ -69,6 +71,6 @@ class User extends Authenticatable
     {
        return Challenge::all()->filter(function(Challenge $challenge) {
            return $this->challenges->contains($challenge) === false;
-       });
+       })
     }
 }
