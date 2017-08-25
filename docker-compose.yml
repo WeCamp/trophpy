@@ -16,13 +16,18 @@ services:
       dockerfile: Dockerfile
     image: trophpy/mysql:latest
     volumes:
-       - mysqldata:/var/lib/mysqlchrome
+       - mysqldata:/var/lib/mysql
     ports:
       - "33060:3306"
     environment:
       MYSQL_ROOT_PASSWORD: "root"
       MYSQL_DATABASE: "trophpy"
-
+  redis:
+    image: redis:alpine
+    volumes:
+      - redisdata:/data
 volumes:
   mysqldata:
+    driver: "local"
+  redisdata:
     driver: "local"

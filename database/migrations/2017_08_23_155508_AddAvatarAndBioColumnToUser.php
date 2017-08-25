@@ -14,7 +14,7 @@ class AddAvatarAndBioColumnToUser extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->string('avatar_filename',255)->nullable()->after('email');
+            $table->string('avatar_filename')->nullable()->after('email');
             $table->text('bio')->nullable()->after('avatar_filename');
         });
     }
@@ -27,8 +27,7 @@ class AddAvatarAndBioColumnToUser extends Migration
     public function down()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->dropColumn('avatar_filename');
-            $table->dropColumn('bio');
+            $table->dropColumn(['bio','avatar_filename']);
         });
     }
 }
