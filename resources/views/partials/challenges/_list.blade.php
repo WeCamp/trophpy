@@ -7,7 +7,7 @@
                 <p>Started on {{ \Carbon\Carbon::parse($challenge['pivot']['started_on'])->format('l j F Y h:i A') }}</p>
             @endif
 
-        @if(isset($showCompletedOn) && $showCompletedOn === true)
+            @if(isset($showCompletedOn) && $showCompletedOn === true)
                 <p>Completed on {{ \Carbon\Carbon::parse($challenge['pivot']['completed_on'])->format('l j F Y h:i A') }}</p>
             @endif
         </div>
