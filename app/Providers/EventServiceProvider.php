@@ -21,6 +21,9 @@ class EventServiceProvider extends ServiceProvider
         ],
         'App\Events\ChallengeWasCompleted' => [
             'App\Listeners\NotifySlackOnChallengeCompleted'
+        ],
+        'App\Events\ChallengeWasAccepted' => [
+            'App\Listeners\NotifySlackChallengeAccepted'
         ]
     ];
 

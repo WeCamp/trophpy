@@ -3,6 +3,7 @@ declare(strict_types = 1);
 
 namespace App\Http\Controllers;
 
+use App\Events\ChallengeWasAccepted;
 use App\Events\ChallengeWasCompleted;
 use App\Models\Challenge;
 use App\Models\User;
@@ -29,6 +30,8 @@ final class ChallengeController extends Controller
         $user = Auth::user();
         $challenge = Challenge::findOrFail($challengeId);
         $user->currentChallenges()->attach($challenge);
+
+        event(new ChallengeWasAccepted($challenge));
 
         return redirect(route('challenges.listAll', Auth::user()->username));
     }
