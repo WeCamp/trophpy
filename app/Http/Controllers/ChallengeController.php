@@ -3,6 +3,8 @@ declare(strict_types = 1);
 
 namespace App\Http\Controllers;
 
+use App\Events\ChallengeWasAccepted;
+use App\Events\ChallengeWasCompleted;
 use App\Models\Challenge;
 use App\Models\User;
 use Carbon\Carbon;
@@ -29,6 +31,8 @@ final class ChallengeController extends Controller
         $challenge = Challenge::findOrFail($challengeId);
         $user->currentChallenges()->attach($challenge);
 
+        event(new ChallengeWasAccepted($challenge));
+
         return redirect(route('challenges.listAll', Auth::user()->username));
     }
 
@@ -44,6 +48,10 @@ final class ChallengeController extends Controller
                 'completed_on' => Carbon::now()
             ]
         ], false);
+
+        $challenge = Challenge::find($challengeId);
+
+        event(new ChallengeWasCompleted($challenge));
 
         return redirect(route('users.view', $user->username));
     }
