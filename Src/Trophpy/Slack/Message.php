@@ -4,6 +4,8 @@ declare(strict_types=1);
 namespace Trophpy\Slack;
 
 
+use Maknz\Slack\Attachment;
+
 final class Message
 {
 
@@ -81,5 +83,10 @@ final class Message
     public function setAttachments(array $attachments)
     {
         $this->attachments = $attachments;
+    }
+
+    public function attach(Attachment $attachment)
+    {
+        $this->attachments[] = $attachment;
     }
 }
